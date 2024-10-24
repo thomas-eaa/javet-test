@@ -2,3 +2,5 @@
 /.project
 /target/
 /.settings/
+/scripts/dist
+/scripts/node_modules

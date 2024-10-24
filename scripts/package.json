@@ -1,0 +1,23 @@
+{
+  "name": "javet-test",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "vite build --ssr src/entry-server.tsx --outDir dist",
+    "render": "cross-env NODE_ENV=production node serverrender"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25",
+    "@vitejs/plugin-react": "^4.2.1",
+    "cross-env": "^7.0.3",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.10"
+  }
+}
