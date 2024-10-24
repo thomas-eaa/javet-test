@@ -1,5 +1,5 @@
 import { Transform } from 'node:stream'
-import { render } from './dist/entry-server.js'
+import { render } from './entry-server.tsx'
 
 
 // Constants
@@ -29,7 +29,7 @@ const { pipe, abort } = render(url, undefined, {
       transformStream.on('finish', () => {
         clearTimeout(timeout);
 		    res.write('\n');
-        process.exit(0);
+        //process.exit(0);
       })
 
       pipe(transformStream)

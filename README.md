@@ -19,3 +19,24 @@ f.removeChild(c);c=d}while(c);for(;b.firstChild;)f.insertBefore(b.firstChild,c);
 
 The same output as with node should be delivered by Javet in the `JavetTest` class, so SSR can be done in the Java/Spring Boot backend. Ideally, the output of the render function will be streamed back to Java in order to hand it over to STDOUT or an HTTP response in a non-blocking mode. 
 
+## Workaround
+
+In this branch, `serverrender.js` is bundled together with `entry-server.tsx`. It can be executed by Javet if you fix the following imports in `dist/serverrender.js`:
+
+From:
+```javascript
+import require$$1 from "stream";
+import require$$0 from "util";
+```
+
+To:
+```javascript
+import require$$1 from "node:stream";
+import require$$0 from "node:util";
+```
+
+Although the execution is working in principal, the dynamic import (`entry-server.tsx:4`: by React's `lazy()` function) cannot be resolved by Javet, so the output looks like this:
+
+```html
+<h1>My App</h1><!--$?--><template id="B:0"></template><div>Loading...</div><!--/$--><script>function $RX(b,c,d,e){var a=document.getElementById(b);a&&(b=a.previousSibling,b.data="$!",a=a.dataset,c&&(a.dgst=c),d&&(a.msg=d),e&&(a.stck=e),b._reactRetry&&b._reactRetry())};$RX("B:0","","A dynamic import callback was not specified.","\n    at Lazy\n    at Suspense\n    at App")</script>
+```

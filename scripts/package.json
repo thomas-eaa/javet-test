@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "vite build --ssr src/entry-server.tsx --outDir dist",
+    "build": "vite build --ssr src/serverrender.js --outDir dist",
     "render": "cross-env NODE_ENV=production node serverrender"
   },
   "dependencies": {
