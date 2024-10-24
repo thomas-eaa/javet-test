@@ -35,6 +35,20 @@ import require$$1 from "node:stream";
 import require$$0 from "node:util";
 ```
 
+This can also be accomplished with the following implementation in V8ModuleResolver:
+
+```java
+nodeRuntime.setV8ModuleResolver(new JavetBuiltInModuleResolver() {
+    @Override
+    public IV8Module resolve(V8Runtime v8Runtime, String resourceName, IV8Module v8ModuleReferrer)  throws JavetException { 
+        if (resourceName.equals("stream") || resourceName.equals("util")) {
+            resourceName = "node:" + resourceName;
+        }
+        return super.resolve(v8Runtime, resourceName, v8ModuleReferrer);
+    }
+});
+```
+
 Although the execution is working in principal, the dynamic import (`entry-server.tsx:4`: by React's `lazy()` function) cannot be resolved by Javet, so the output looks like this:
 
 ```html
